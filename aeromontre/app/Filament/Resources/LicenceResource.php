@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class LicenceResource extends Resource
 {
     protected static ?string $model = Licence::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel='Licencias y Certificados';
+    protected static ?string $navigationIcon = 'heroicon-o-identification';
 
     public static function form(Form $form): Form
     {

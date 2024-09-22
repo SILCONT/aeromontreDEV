@@ -17,8 +17,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class PlaneResource extends Resource
 {
     protected static ?string $model = Plane::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel='Aviones';
+    protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
 
     public static function form(Form $form): Form
     {
