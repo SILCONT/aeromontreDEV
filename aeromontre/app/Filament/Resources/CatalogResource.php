@@ -18,6 +18,9 @@ class CatalogResource extends Resource
     protected static ?string $model = Catalog::class;
     protected static ?string $navigationLabel='Catalogo de Licencias y Certificados';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup='Catalogos';
+    protected static ?int $navigationSort=2;
+
 
     public static function form(Form $form): Form
     {
