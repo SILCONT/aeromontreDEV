@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('asignacion');  //asignación (Stock, Cliente, Matricula)
             $table->string('ubicacion');   //lugar de almacenamiento
             $table->string('codigo')->nullable();    //codigo de barras
+            $table->integer('cantidad');
+            $table->string('estado');
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ class CatalogResource extends Resource
 {
     protected static ?string $model = Catalog::class;
     protected static ?string $navigationLabel='Catalogo de Licencias y Certificados';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
     protected static ?string $navigationGroup='Catalogos';
     protected static ?int $navigationSort=2;
 
@@ -29,8 +29,8 @@ class CatalogResource extends Resource
                 Forms\Components\Select::make('type')
                     ->required()
                     ->options([
-                        'licence'=>'Licence',
-                        'medical'=>'Medical Certificate'
+                        'licencia'=>'Licencia',
+                        'medico'=>'Certificado Medico'
                     ]),
                 Forms\Components\TextInput::make('description')
                     ->required()

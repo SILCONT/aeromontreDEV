@@ -19,6 +19,7 @@ class PlaneResource extends Resource
     protected static ?string $model = Plane::class;
     protected static ?string $navigationLabel='Aviones';
     protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
+    protected static ?string $navigationGroup='Catalogos';
 
     public static function form(Form $form): Form
     {

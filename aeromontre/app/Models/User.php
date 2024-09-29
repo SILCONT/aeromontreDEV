@@ -52,4 +52,8 @@ class User extends Authenticatable
     public function licences():HasMany{
         return $this->hasMany(Licence::class);
     }
+
+    public function salidas():HasMany{
+        return $this->hasMany(Salida::class);
+    }
 }

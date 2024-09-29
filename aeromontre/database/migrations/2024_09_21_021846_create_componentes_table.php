@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('tipo');
             $table->string('fabricante');
             $table->string('modelo');
+            $table->string('full_desc')->virtualAs('concat(descripcion, \' \', fabricante, \' \', modelo)');
             $table->timestamps();
         });
     }

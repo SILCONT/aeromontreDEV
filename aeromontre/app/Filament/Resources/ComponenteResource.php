@@ -30,9 +30,9 @@ class ComponenteResource extends Resource
                 Forms\Components\Select::make('tipo')
                     ->required()
                     ->options([
-                        'parte'=>'Parte',
-                        'herramienta'=>'Herramienta',
-                        'consumible'=>'Consumible'
+                        'Parte'=>'Parte',
+                        'Herramienta'=>'Herramienta',
+                        'Consumible'=>'Consumible'
                     ]),
                 Forms\Components\TextInput::make('fabricante')
                     ->required()

@@ -16,48 +16,52 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Get;
 use Illuminate\Support\Collection;
 use Filament\Forms\Components\Section;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class EntradaResource extends Resource
 {
     protected static ?string $model = Entrada::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-table-cells';
+    protected static ?string $navigationIcon = 'heroicon-o-document-arrow-down';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //Forms\Components\Select::make('componente_id')
-                  //  ->relationship('componente', 'descripcion')
-                    //->searchable()
-                    //->live()
-                    //->afterStateUpdated(fn(Set $set)=>$set('fabricante_id',null))
-                    //->preload()
-                    //->required(),
-                Forms\Components\Select::make('component_id')
-                    ->options(fn (Get $get):Collection=>Componente::query()
-                    ->where ('id' , $get('componente_id'))
-                    ->pluck('fabricante', 'descripcion'))
+                Forms\Components\Select::make('componente_id')
+                    ->relationship('componente', 'full_desc')
                     ->searchable()
-                    ->preload()
-                    ->label('Fabricante')
                     ->live()
+                    ->preload()
                     ->required(),
                 Forms\Components\DatePicker::make('ingreso')
                     ->required()
                     ->label('Fecha de entrada'),
+                Forms\Components\Select::make('estado')
+                    ->required()
+                    ->options([
+                        'Almacenado'=>'En Almacen',    //En almacen 1
+                        'Utilizado'=>'Salida de Almacen'   //Salida de Almacen 0
+                    ]),
                 Forms\Components\TextInput::make('parte')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('serie')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('cantidad')
+                    ->required()
+                    ->numeric()
+                    ->integer()
+                    ->default(1)
+                    ->minValue(1)
+                    ->maxLength(255),
                 Forms\Components\Select::make('asignacion')
                     ->required()
                     ->options([
-                        'stock'=>'Stock',
-                        'cliente'=>'Cliente',
-                        'matricula'=>'Matricula']),
+                        'Stock'=>'Stock',
+                        'Cliente'=>'Cliente',
+                        'Matricula'=>'Matricula']),
                 Forms\Components\Select::make('cliente_id')
                     ->default(null)
                     ->relationship('cliente','nombre')
@@ -85,26 +89,31 @@ class EntradaResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('componente.id')
+                Tables\Columns\TextColumn::make('cantidad')
+                    ->numeric()
+                    ->label('Cant.'),
+                Tables\Columns\TextColumn::make('codigo')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('componente.full_desc')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('cliente.id')
+                Tables\Columns\TextColumn::make('ingreso')
+                    ->date()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('asignacion')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('cliente.nombre')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('plane.id')
+                Tables\Columns\TextColumn::make('plane.matricula')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('caducidad')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('ingreso')
-                    ->date()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('parte')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('serie')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('asignacion')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('ubicacion')
                     ->searchable(),
@@ -134,6 +143,9 @@ class EntradaResource extends Resource
     {
         return [
             //
+            RelationManagers\SalidasRelationManager::class,
+
+
         ];
     }
 
