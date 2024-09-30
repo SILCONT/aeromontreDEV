@@ -24,7 +24,9 @@ COPY --from=spiralscout/roadrunner:2.4.2 /usr/bin/rr /usr/bin/rr
 WORKDIR /app
 COPY . .
 
-RUN client mysql -h server -u ernet99 -p 'aeromontre2024' aeromontre_db
+RUN docker-compose up -d
+
+
 RUN composer install
 RUN composer require laravel/octane spiral/roadrunner
 COPY .envDev .env
