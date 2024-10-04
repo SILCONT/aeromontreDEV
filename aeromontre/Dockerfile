@@ -29,8 +29,12 @@ RUN composer require laravel/octane spiral/roadrunner
 #COPY .envDev .env
 RUN mkdir -p /app/storage/logs
 
-RUN php artisan octane:install--server="swoole"
+RUN php artisan octane:install --server="swoole"
 
 CMD php artisan octane:start --server="swoole" --host="0.0.0.0"
-
+#
 EXPOSE 8000
+
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+ENTRYPOINT ["/docker-entrypoint.sh"]
